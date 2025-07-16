@@ -572,6 +572,87 @@
             opacity: 1;
             visibility: visible;
         }
+
+        /* Image container styling */
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            width: 100%;
+        }
+
+        .rounded-image {
+            width: 80%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .rounded-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 35px var(--shadow-hover);
+        }
+
+        @media (max-width: 768px) {
+            .rounded-image {
+                width: 95%;
+                max-width: none;
+            }
+        }
+
+        /* Fullscreen image modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .image-modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #ffffff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2001;
+            user-select: none;
+        }
+
+        .image-modal-close:hover {
+            color: #cccccc;
+        }
+
+        /* Make original image clickable */
+        .rounded-image {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -700,7 +781,10 @@
                 <p>I have always been interested in graphic design.</p>
                 <p>While at school, I earned some money by designing websites.</p>
                 <p>At university, I worked for a student consultancy on the side and, as one of my consulting projects, I designed a corporate design for a client, including a logos.</p>
-                <p>Later, during my PhD, I convinced a few talented friends of mine to co-found a company with me, called Markedly Ltd. The idea was to generate vector logos and icons using AI. Unfortunately, we were too early. But I won the "Young Entrepreneur of the Year Award" for this work from the Cambridge University Entrepreneurs in 2017.</p>
+                <p>Later, during my PhD, I convinced a few talented friends of mine to co-found a company with me, called Markedly Ltd. The idea was to generate vector logos and icons using AI under the brand of "Logobot" or "Logolab" (our initial name). Unfortunately, we were too early. But I won the "Young Entrepreneur of the Year Award" for this work from the Cambridge University Entrepreneurs in 2017. This was the time when thenounproject.com started to offer pre-made vector icons via API and when Logojoy (now called Looka) allowed users to create logos based on keywords. I never liked that the icons used were identical for all users. This defeated the purpose of corporate identity and logos. So, we started to make the logos more intelligent by adding basic AI models.</p>
+                <div class="image-container">
+                    <img src="images/logobot_pitch.png" alt="Logobot pitch deck" class="rounded-image">
+                </div>
                 <p>Since that time, a significant number of my synapses have remained reserved for this topic. In 2021, I started to write an online book on the topic of "Deep Learning with Vector Graphics" which you can find <a href="https://pwichmann.github.io/deep-learning-with-vector-graphics-book/" target="_blank">here</a>. I also personally spoke with many of the authors of seminal papers in the field.</p>
                 <p>[I will add more details here soon.]</p>
             </div>
@@ -716,7 +800,11 @@
         </section>
     </main>
 
-
+    <!-- Fullscreen Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <span class="image-modal-close">&times;</span>
+        <img class="image-modal-content" id="modalImage" alt="">
+    </div>
 
     <script>
         // Navigation functionality
@@ -925,6 +1013,55 @@
                     setTheme(newTheme);
                 });
             }
+
+            // Fullscreen image functionality
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeBtn = document.querySelector('.image-modal-close');
+            const clickableImages = document.querySelectorAll('.rounded-image');
+
+            // Add click event to all rounded images
+            clickableImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    openImageModal(this.src, this.alt);
+                });
+            });
+
+            function openImageModal(src, alt) {
+                modalImage.src = src;
+                modalImage.alt = alt;
+                imageModal.style.display = 'flex';
+                // Force reflow before adding show class for transition
+                imageModal.offsetHeight;
+                imageModal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+
+            function closeImageModal() {
+                imageModal.classList.remove('show');
+                document.body.style.overflow = 'auto'; // Restore scrolling
+                setTimeout(() => {
+                    imageModal.style.display = 'none';
+                }, 300); // Wait for transition to complete
+            }
+
+            // Close modal when clicking the X button
+            closeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeImageModal();
+            });
+
+            // Close modal when clicking on the modal background or image
+            imageModal.addEventListener('click', function() {
+                closeImageModal();
+            });
+
+            // Close modal when pressing Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && imageModal.classList.contains('show')) {
+                    closeImageModal();
+                }
+            });
         });
     </script>
 </body>
