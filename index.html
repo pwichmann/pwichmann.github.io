@@ -655,6 +655,141 @@
         .rounded-image {
             cursor: pointer;
         }
+
+        /* Image Carousel Styles */
+        .image-carousel {
+            max-width: 800px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .carousel-slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-slide img:hover {
+            transform: scale(1.02);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-nav.prev {
+            left: 50px;
+        }
+
+        .carousel-nav.next {
+            right: 50px;
+        }
+
+        .carousel-nav svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px;
+        }
+
+        .carousel-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicator.active {
+            background: var(--accent-secondary);
+            transform: scale(1.3);
+        }
+
+        .carousel-caption {
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .image-carousel {
+                max-width: 95%;
+                margin: 1.5rem auto;
+            }
+            
+            .carousel-container {
+                height: 350px;
+            }
+            
+            .carousel-nav {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .carousel-nav.prev {
+                left: 20px;
+            }
+            
+            .carousel-nav.next {
+                right: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -798,7 +933,118 @@
                 <h2>Labelling app</h2>
                 <p>To view collected SVGs and to label them, I manually built a local Web application. It allowed me to view the most recently added SVGs. But I had also CLIP-embedded at least 20 million of the rasterised SVGs. Using a vector database (I used Milvus), I was then able to search SVGs by a text description. And I could click on any icon to find the most similar SVGs in the database. The latter enabled a mass labelling mode: I could view the 1,000 most similar SVGs on one screen, select all of them at once (or deselect a few) to assign a label to them.</p>
                 <h2>Figma plugin called "Quiver"</h2>
-                <p>I also built a Figma plugin, which I called "Quiver AI". I never publicly released it apart from also creating a website for it. The Figma plugin was supposed to help designers with inspiration on how concepts could be visualised. It used the same semantic search I had already implemented for my labelling app. Google Image Search was fairly terrible for icons at the time at least. I liked the name Quiver because I was working with vector graphics (a vector often being represented as an arrow) and using Deep Learning I wanted to create an infinite repository for vector graphics.</p>
+                <p>I also built a Figma plugin, which I called "Quiver AI". I never publicly released it apart from also creating a website for it. The Figma plugin was supposed to help designers with inspiration on how concepts could be visualised. It used the same semantic search I had already implemented for my labelling app. Google Image Search was fairly terrible for icons at the time at least. I liked the name Quiver because I was working with vector graphics (a vector often being represented as an arrow) and using Deep Learning I wanted to create an infinite repository for vector graphics. I could not allow the import of the SVGs into Figma because I wanted to respect the rights of the original creators of the SVGs. I could only show a raster version and a link to the website where the SVG had been found. But because I had collected all the SVGs, I was able to show clean raster images in identical resolution and sizes.</p>
+                <div class="image-carousel">
+                    <div class="carousel-caption">
+                        Screenshots of the "Quiver" Figma plugin: Semantic search results
+                    </div>
+                    <div class="carousel-container">
+                        <div class="carousel-slides" id="carouselSlides">
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_1.png" alt="Quiver Figma plugin screenshot 1">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_2.png" alt="Quiver Figma plugin screenshot 2">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_3.png" alt="Quiver Figma plugin screenshot 3">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_4.png" alt="Quiver Figma plugin screenshot 4">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_5.png" alt="Quiver Figma plugin screenshot 5">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_6.png" alt="Quiver Figma plugin screenshot 6">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_7.png" alt="Quiver Figma plugin screenshot 7">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_8.png" alt="Quiver Figma plugin screenshot 8">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_9.png" alt="Quiver Figma plugin screenshot 9">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_10.png" alt="Quiver Figma plugin screenshot 10">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_11.png" alt="Quiver Figma plugin screenshot 11">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_12.png" alt="Quiver Figma plugin screenshot 12">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_13.png" alt="Quiver Figma plugin screenshot 13">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_14.png" alt="Quiver Figma plugin screenshot 14">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_15.png" alt="Quiver Figma plugin screenshot 15">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_16.png" alt="Quiver Figma plugin screenshot 16">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_17.png" alt="Quiver Figma plugin screenshot 17">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/screenshots_search_results/screenshot_18.png" alt="Quiver Figma plugin screenshot 18">
+                            </div>
+                        </div>
+                        <button class="carousel-nav prev" id="carouselPrev">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-nav next" id="carouselNext">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="carousel-indicators" id="carouselIndicators"></div>
+                </div>
+                <p>The Figma plugin could do more than just a semantic search; users should also be able to collect and manage icons.</p>
+                
+                <div class="image-carousel">
+                    <div class="carousel-caption" id="gifCarouselCaption">
+                        caption1
+                    </div>
+                    <div class="carousel-container">
+                        <div class="carousel-slides" id="gifCarouselSlides">
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/gifs/demo_lists.gif" alt="Quiver Figma plugin demo - Lists">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/gifs/demo_main.gif" alt="Quiver Figma plugin demo - Main">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/gifs/demo_pins.gif" alt="Quiver Figma plugin demo - Pins">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/gifs/demo_prompt_search.gif" alt="Quiver Figma plugin demo - Prompt Search">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="images/quiver_figma_plugin/gifs/demo_similarity_search.gif" alt="Quiver Figma plugin demo - Similarity Search">
+                            </div>
+                        </div>
+                        <button class="carousel-nav prev" id="gifCarouselPrev">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-nav next" id="gifCarouselNext">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="carousel-indicators" id="gifCarouselIndicators"></div>
+                </div>
                 <h2>line.art</h2>
                 <p>I have also been fascinated by continuous, single line art drawings. So much so, that I spent an insane amount of money on the domain line.art and have been working on the idea using Fourier Series and other techniques.</p>
                 <h2>"Fontitude"</h2>
@@ -1042,6 +1288,168 @@
                     openImageModal(this.src, this.alt);
                 });
             });
+
+            // Image Carousel Functionality
+            let currentSlide = 0;
+            const carouselSlides = document.getElementById('carouselSlides');
+            const carouselPrev = document.getElementById('carouselPrev');
+            const carouselNext = document.getElementById('carouselNext');
+            const carouselIndicators = document.getElementById('carouselIndicators');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const totalSlides = slides.length;
+
+            // Create indicators
+            if (carouselIndicators && totalSlides > 0) {
+                for (let i = 0; i < totalSlides; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'carousel-indicator';
+                    if (i === 0) indicator.classList.add('active');
+                    indicator.addEventListener('click', () => goToSlide(i));
+                    carouselIndicators.appendChild(indicator);
+                }
+            }
+
+            function updateCarousel() {
+                if (carouselSlides) {
+                    const offset = -currentSlide * 100;
+                    carouselSlides.style.transform = `translateX(${offset}%)`;
+                }
+                
+                // Update indicators
+                const indicators = document.querySelectorAll('.carousel-indicator');
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentSlide);
+                });
+            }
+
+            function goToSlide(slideIndex) {
+                currentSlide = slideIndex;
+                updateCarousel();
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+
+            // Add event listeners for carousel navigation
+            if (carouselNext) {
+                carouselNext.addEventListener('click', nextSlide);
+            }
+            
+            if (carouselPrev) {
+                carouselPrev.addEventListener('click', prevSlide);
+            }
+
+            // Add keyboard navigation for carousel
+            document.addEventListener('keydown', function(e) {
+                // Only navigate carousel if not in image modal
+                if (!imageModal.classList.contains('show')) {
+                    if (e.key === 'ArrowLeft') {
+                        prevSlide();
+                    } else if (e.key === 'ArrowRight') {
+                        nextSlide();
+                    }
+                }
+            });
+
+            // Add click event to carousel images for fullscreen view
+            const carouselImages = document.querySelectorAll('.carousel-slide img');
+            carouselImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    openImageModal(this.src, this.alt);
+                });
+            });
+
+            // GIF Carousel Functionality
+            let gifCurrentSlide = 0;
+            const gifCarouselSlides = document.getElementById('gifCarouselSlides');
+            const gifCarouselPrev = document.getElementById('gifCarouselPrev');
+            const gifCarouselNext = document.getElementById('gifCarouselNext');
+            const gifCarouselIndicators = document.getElementById('gifCarouselIndicators');
+            const gifCarouselCaption = document.getElementById('gifCarouselCaption');
+            const gifSlides = document.querySelectorAll('#gifCarouselSlides .carousel-slide');
+            const gifTotalSlides = gifSlides.length;
+            
+            // Captions for each GIF slide
+            const gifCaptions = [
+                'Users could create custom lists of icons.',
+                'Users could search for icons by entering a text description or click on any image to search for similar icons.', 
+                'Users could pin icons for later use; this would also store the icon locally so it was accessible without internet.',
+                'The semantic search worked really well and could distinguish styles.',
+                'The similarity search was an elegant way of exploring the visual space of the icons.'
+            ];
+
+            // Create indicators for GIF carousel
+            if (gifCarouselIndicators && gifTotalSlides > 0) {
+                for (let i = 0; i < gifTotalSlides; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'carousel-indicator';
+                    if (i === 0) indicator.classList.add('active');
+                    indicator.addEventListener('click', () => gifGoToSlide(i));
+                    gifCarouselIndicators.appendChild(indicator);
+                }
+            }
+
+            function gifUpdateCarousel() {
+                if (gifCarouselSlides) {
+                    const offset = -gifCurrentSlide * 100;
+                    gifCarouselSlides.style.transform = `translateX(${offset}%)`;
+                }
+                
+                // Update caption for current slide
+                if (gifCarouselCaption && gifCaptions[gifCurrentSlide]) {
+                    gifCarouselCaption.textContent = gifCaptions[gifCurrentSlide];
+                }
+                
+                // Update indicators for GIF carousel
+                const gifIndicators = document.querySelectorAll('#gifCarouselIndicators .carousel-indicator');
+                gifIndicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === gifCurrentSlide);
+                });
+            }
+
+            function gifGoToSlide(slideIndex) {
+                gifCurrentSlide = slideIndex;
+                gifUpdateCarousel();
+            }
+
+            function gifNextSlide() {
+                gifCurrentSlide = (gifCurrentSlide + 1) % gifTotalSlides;
+                gifUpdateCarousel();
+            }
+
+            function gifPrevSlide() {
+                gifCurrentSlide = (gifCurrentSlide - 1 + gifTotalSlides) % gifTotalSlides;
+                gifUpdateCarousel();
+            }
+
+            // Add event listeners for GIF carousel navigation
+            if (gifCarouselNext) {
+                gifCarouselNext.addEventListener('click', gifNextSlide);
+            }
+            
+            if (gifCarouselPrev) {
+                gifCarouselPrev.addEventListener('click', gifPrevSlide);
+            }
+
+            // Add click event to GIF carousel images for fullscreen view
+            const gifCarouselImages = document.querySelectorAll('#gifCarouselSlides .carousel-slide img');
+            gifCarouselImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    openImageModal(this.src, this.alt);
+                });
+            });
+
+            // Initialize GIF carousel with first caption
+            if (gifTotalSlides > 0) {
+                gifUpdateCarousel();
+            }
 
             function openImageModal(src, alt) {
                 modalImage.src = src;
