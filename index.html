@@ -268,10 +268,12 @@
         }
 
         .section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
             color: var(--accent-primary);
-            text-align: center;
+            text-align: left;
+            font-weight: 300;
         }
 
         .section p {
@@ -781,6 +783,7 @@
                 <p>I have always been interested in graphic design.</p>
                 <p>While at school, I earned some money by designing websites.</p>
                 <p>At university, I worked for a student consultancy on the side and, as one of my consulting projects, I designed a corporate design for a client, including many logo drafts and the final logo.</p>
+                <h2>During my PhD as a side project: Markedly and Logobot</h2>
                 <p>Later, during my PhD, I convinced a few talented friends of mine to co-found a company with me, called Markedly Ltd. The idea was to generate vector logos and icons using AI under the brand of "Logobot" or "Logolab" (our initial name). This was the time when thenounproject.com started to offer pre-made vector icons via API and when Logojoy (now called Looka) allowed users to create logos based on keywords. Logojoy initially used some pre-made static templates for these logos. So, we started to make the logos more intelligent by adding basic AI models.</p>
                 <div class="image-container">
                     <img src="images/logobot_pitch.png" alt="Logobot pitch deck" class="rounded-image">
@@ -788,8 +791,14 @@
                 <p>You may be able to see in the image above that we were able to automatically identify which icon matched the keyword and also visually resembled the shape of a letter in the brand name. For some logos, we then replaced the letter by the icon. We did the same for the counter space in letters, e.g. we first filled the letter "O" and then deducted an octopus icon (similar in shape to the inner, negative space of the letter) from the letter.</p>
                 <p>I also never liked that the icons used were identical for all users. This defeated the purpose of corporate identity and logos. So, we ran many experiments on trying to generate custom icons with GANs and other generative models of the time.</p>
                 <p>Unfortunately, we were too early and I also still needed to convince my PhD supervisor of my ideas for my PhD research which was completely unrelated to vector graphics. But I won the "Young Entrepreneur of the Year Award" for this work from the Cambridge University Entrepreneurs in 2017.</p>
+                <h2>Parallel to my consulting work: Online book on Deep Learning with Vector Graphics</h2>
                 <p>Since that time, a significant number of my synapses have remained reserved for this topic. In 2021, I started to write an online book on the topic of "Deep Learning with Vector Graphics" which you can find <a href="https://pwichmann.github.io/deep-learning-with-vector-graphics-book/" target="_blank">here</a>. I also personally spoke with many of the authors of seminal papers in the field.</p>
-                <p>[I will add more details here soon.]</p>
+                <h2>SVG collection</h2>
+                <p>Since my PhD times, I have been collecting SVGs in a large database comprising 50+ million of unique SVGs. Scripts extract SVGs from public websites, perform some preprocessing steps and store new ones in a MongoDB. If the SVG is already in the database, I also check if the SVG came with a filename. If so, I store one unique filename per domain in a separate MongoDB collection. This way, I can use the collected filenames for the same SVG as indicators for the content or labels.</p>
+                <h2>Labelling app</h2>
+                <p>To view collected SVGs and to label them, I manually built a local Web application. It allowed me to view the most recently added SVGs. But I had also CLIP-embedded at least 20 million of the rasterised SVGs. Using a vector database (I used Milvus), I was then able to search SVGs by a text description. And I could click on any icon to find the most similar SVGs in the database. The latter enabled a mass labelling mode: I could view the 1,000 most similar SVGs on one screen, select all of them at once (or deselect a few) to assign a label to them.</p>
+                <h2>Figma plugin called "Quiver"</h2>
+                <p>I also built a Figma plugin, which I called "Quiver AI". I never publicly released it apart from also creating a website for it. The Figma plugin was supposed to help designers with inspiration on how concepts could be visualised. It used the same semantic search I had already implemented for my labelling app. Google Image Search was fairly terrible for icons at the time at least. I liked the name Quiver because I was working with vector graphics (a vector often being represented as an arrow) and using Deep Learning I wanted to create an infinite repository for vector graphics.</p>
             </div>
         </section>
 
